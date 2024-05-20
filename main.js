@@ -164,12 +164,13 @@ class Participante {
     intentosSegundoPremio() {
      
       let numeroGanadorSegundoPremio = Math.floor(Math.random() * 3);
-      let intento = parseInt(prompt(`${this.nombre} ${this.apellido} Ingrese un número entre el 0 y el 3 para el premio mayor`));
+      let intento = parseInt(prompt(`${this.nombre} ${this.apellido} Ingrese un número entre el ${numeros} para el premio mayor`));
       if (intento === numeroGanadorSegundoPremio) {
         alert(`${this.nombre} ${this.apellido} ¡Increíble! Has ganado el premio mayor, un ${premio2.marca} ${premio2.modelo} ${premio2.color} 0km.`);
+        alert(`no olvides reclamar tus premios ganados en nuestras agencia en la siguente fecha ${hoy.toDateString()}`);
       } else {
         alert(`${this.nombre} ${this.apellido} Lo siento, no has ganado el premio mayor esta vez. El número ganador era ${numeroGanadorSegundoPremio}.`);
-        // alert(`no olvides reclamar tus premios ganados en nuestras agencia en la siguente fecha ${hoy.toDateString}`)
+        alert(`no olvides reclamar tus premios ganados en nuestras agencia en la siguente fecha ${hoy.toDateString()}`);
       }
     }
   }
@@ -187,7 +188,12 @@ class Participante {
     color: "Gris"
   }
 
-  const hoy = new Date (Mayo ,29, 2024)
+  const numeros = [0, 1, 2, 3]
+  for (let i= 0; i < numeros.length; i++){
+    alert(numeros[i]);
+  }
+
+  const hoy = new Date ("Mayo 29, 2024")
   let nombre = prompt("Ingrese su nombre");
   let apellido = prompt("Ingrese su apellido");
   let participante = new Participante(nombre, apellido);
