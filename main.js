@@ -18,6 +18,17 @@ function textogameover() {
   mensajedeperder.style.fontStyle = "normal";
 }
 
+function textoganador() {
+  const mensajedeperder = document.getElementById("mensajedeganar");
+  mensajedeperder.innerText = "GANASTE, HAZ CLICK EN LA PANTALLA";
+  mensajedeperder.style.fontSize = "100px";
+  mensajedeperder.style.textAlign = "center";
+  mensajedeperder.style.color = "white"
+  mensajedeperder.style.fontFamily = "'Rubik Moonrocks', sans-serif";
+  mensajedeperder.style.fontWeight = 400;
+  mensajedeperder.style.fontStyle = "normal";
+}
+
     function iniciarJuego() {
       alert("BIENVENIDO");
       desaparecerboton();
@@ -90,7 +101,7 @@ function textogameover() {
             let intento = parseInt(prompt(`${this.nombre} ${this.apellido} Ingrese un número entre el 0 y el 3 para el premio mayor`));
             if ((intento === numeroGanadorSegundoPremio || intento === 2)) {
               alert(`${this.nombre} ${this.apellido} ¡Increíble! Has ganado el premio mayor, un ${premio2.marca} ${premio2.modelo} ${premio2.color} 0km.`);
-              coloresfondocambio.innerText= "DALE CLICK AL FONDO PARA CELEBRAR";
+              textoganador();
               document.addEventListener('click', cambiodefondoaleatorio);
               console.log('Celebra dandole click a la pantalla.');
               alert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}`);
