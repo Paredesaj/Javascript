@@ -1,5 +1,23 @@
 const botondeinicio = document.getElementById('botondeinicio');
 
+function cambiodefondoaleatorio() {
+  const coloresfondocambio = document.getElementById('coloresfondocambio');
+  const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  document.body.style.backgroundColor = randomColor;
+}
+
+function textogameover() {
+  const mensajedeperder = document.getElementById("mensajedeperder");
+  mensajedeperder.innerText = "GAME OVER";
+  mensajedeperder.style.fontSize = "100px";
+  mensajedeperder.style.textAlign = "center";
+  mensajedeperder.style.color = "white"
+  mensajedeperder.style.fontFamily = " 'Jersey 20', sans-serif";
+  mensajedeperder.style.fontWeight = 400;
+  mensajedeperder.style.fontStyle = "normal";
+}
+
     function iniciarJuego() {
       alert("BIENVENIDO");
       desaparecerboton();
@@ -45,12 +63,14 @@ const botondeinicio = document.getElementById('botondeinicio');
                 this.intentos--;
                 alert(`${this.nombre} ${this.apellido} Un intento menos, intenta nuevamente`);
                 document.body.style.backgroundColor = "black";
+                textogameover();
                 console.log('Al perder todas las oportunidades el fondo quedara negro');
               }
             }
 
             if (!acierto) {
               alert(`${this.nombre} ${this.apellido} Has perdido todas tus oportunidades`);
+              textogameover();
               desaparecerboton();
             }
           }
@@ -79,6 +99,7 @@ const botondeinicio = document.getElementById('botondeinicio');
               document.body.style.backgroundColor = "black";
               console.log('PERDISTE EL FONDO ESTA NEGRO');
               alert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}`);
+              textogameover();
             }
             desaparecerboton();
           }
@@ -102,6 +123,7 @@ const botondeinicio = document.getElementById('botondeinicio');
           alert("HAS SIDO EXPULSADO");
           document.body.style.backgroundColor = "black";
           console.log('Fuiste expulsado el fondo esta negro');
+          textogameover();
           desaparecerboton();
         }
 
@@ -129,7 +151,7 @@ const botondeinicio = document.getElementById('botondeinicio');
 
     function cambiodefondoaleatorio() {
         const colorChangeMessage = document.getElementById('coloresfondocambio');
-        const colors = ['LightSalmon', 'Coral', 'Tomato', 'OrangeRedw', 'DarkOrange', 'Orange'];
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         document.body.style.backgroundColor = randomColor;
       }
