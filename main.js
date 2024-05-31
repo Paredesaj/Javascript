@@ -24,7 +24,7 @@ function textoganador() {
   mensajedeperder.style.fontSize = "100px";
   mensajedeperder.style.textAlign = "center";
   mensajedeperder.style.color = "white"
-  mensajedeperder.style.fontFamily = "'Rubik Moonrocks', sans-serif";
+  mensajedeperder.style.fontFamily = "'Rubik Moonrocks";
   mensajedeperder.style.fontWeight = 400;
   mensajedeperder.style.fontStyle = "normal";
 }
@@ -119,9 +119,16 @@ function textoganador() {
         let pregunta = prompt("¿QUIERES ENTRAR A MI JUEGO?");
 
         if (pregunta.toLowerCase() === "si") {
-          let nombre = prompt("Ingrese su nombre");
-          let apellido = prompt("Ingrese su apellido");
+          
+          let nombre = (prompt("Ingrese su nombre"));
+          localStorage.setItem("usuarionombre", nombre);
+          
+          let apellido = (prompt("Ingrese su apellido"));
+          localStorage.setItem("usuarioapellido", apellido);
+          
           let participante = new Participante(nombre, apellido);
+          
+
           document.body.style.backgroundColor = "MediumTurquoise";
           console.log('Cambio el fondo a MediumTurquoise');
           setTimeout(() => {
