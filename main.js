@@ -53,7 +53,7 @@ async function iniciarJuego() {
 async function iniciarParticipante() {}
 
 function iniciarTemporizador() {
-  let tiempoRestante = 25;
+  let tiempoRestante = 20;
 
   const temporizador = setInterval(() => {
     tiempoRestante--;
