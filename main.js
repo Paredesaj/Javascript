@@ -1,13 +1,11 @@
-// HTML Elements
 const botondeinicio = document.getElementById("botondeinicio");
 const temporizadorDisplay = document.getElementById("tiempoRestante");
 const botondecambiodecolor = document.getElementById("botondecambiodecolor");
 const mensajedeperder = document.getElementById("mensajedeperder");
 
-// Initial setup
-botondecambiodecolor.style.display = "none";  // Hide the color change button initially
+botondecambiodecolor.style.display = "none";
 
-let temporizador;  // Global variable to hold the timer
+let temporizador;
 
 function cambiodefondoaleatorio() {
   const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
@@ -33,7 +31,7 @@ function textoganador() {
   botondecambiodecolor.style.fontFamily = "'Rubik Moonrocks', sans-serif";
   botondecambiodecolor.style.fontWeight = 400;
   botondecambiodecolor.style.fontStyle = "normal";
-  botondecambiodecolor.style.display = "block";  // Show the button
+  botondecambiodecolor.style.display = "block";
 }
 
 async function iniciarJuego() {
@@ -143,7 +141,7 @@ async function iniciarParticipante() {
     }
 
     async entregarPremio(numeroGanador) {
-      clearInterval(temporizador);  // Stop the timer
+      clearInterval(temporizador);
       if ([2, 17, 13, 4, 7].includes(numeroGanador)) {
         await customAlert(`${this.nombre} ${this.apellido}, te has ganado un ${premio1.marca} ${premio1.modelo}, con una memoria de ${premio1.memoria} en su versión color ${premio1.color}.`);
         localStorage.setItem("premio1", JSON.stringify(premio1));
@@ -207,7 +205,6 @@ async function iniciarParticipante() {
 botondeinicio.addEventListener("click", iniciarJuego);
 localStorage.clear();
 
-// Custom alert functions
 function customAlert(message) {
   return Swal.fire({
     title: message,
@@ -244,5 +241,4 @@ async function customConfirm(message) {
   return result.isConfirmed;
 }
 
-// Hide the color change button initially
 botondecambiodecolor.style.display = "none";
