@@ -48,7 +48,7 @@ function desaparecerboton() {
 }
 
 function iniciarTemporizador() {
-  let tiempoRestante = 20;
+  let tiempoRestante = 30;
 
   temporizador = setInterval(() => {
     tiempoRestante--;
