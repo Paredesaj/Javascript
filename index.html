@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jersey+20&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
@@ -54,9 +55,18 @@
   </head>
   <body>
     <h1 id="mensajedeperder" style="background-color: black;"></h1>
-    <h1 id="mensajedeganar"></h1>
     <div id="temporizador">Te quedan: <br> <span id="tiempoRestante">20</span> segundos</div>
-    <button id="botondeinicio">Iniciar Juego</button>
+    <button id="botondeinicio">
+      INICIA EL JUEGO
+    </button>
+    <div id="botondecambiodecolor">
+      <div class="container">
+        <button class="button">
+          GANASTE
+          CLICKEA
+        </button>
+      </div>
+    </div>
     <div id="coloresfondocambio"></div>
     <script src="main.js"></script>
   </body>
