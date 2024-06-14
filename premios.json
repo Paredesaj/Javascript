@@ -1,0 +1,40 @@
+{
+  "premios1": [
+    {
+      "marca": "iPhone",
+      "modelo": 15,
+      "memoria": "512GB",
+      "color": "Blanco"
+    },
+    {
+      "marca": "Samsung",
+      "modelo": "Galaxy S24",
+      "memoria": "512GB",
+      "color": "Plateado"
+    },
+    {
+      "marca": "Hawuei",
+      "modelo": "P40 PRO",
+      "memoria": "512GB",
+      "color": "Light Blue"
+    }
+  ],
+
+    "premios2": [
+        {
+        "marca" : "Tesla",
+        "modelo": "Cybertruck",
+        "color": "Gris"
+        },
+        {
+        "marca" : "Ferrari",
+        "modelo": "SF90 Stradale",
+        "color": "Rojo"
+        },
+        {
+        "marca" : "Lamborghini",
+        "modelo": "URUS SE",
+        "color": "Naranja"
+        }
+    ]
+}

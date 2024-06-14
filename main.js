@@ -34,6 +34,28 @@ function textoganador() {
   botondecambiodecolor.style.display = "block";
 }
 
+async function obtenerPremiosAleatorios() {
+  try {
+    const response = await fetch("premios.json");
+    if (!response.ok) {
+      throw new Error("No se pudo cargar el archivo de premios.");
+    }
+    const data = await response.json();
+    const primerPremio = data.premios1;
+    const segundoPremio = data.premios2;
+
+    const premio1 =
+      primerPremio[Math.floor(Math.random() * primerPremio.length)];
+    const premio2 =
+      segundoPremio[Math.floor(Math.random() * segundoPremio.length)];
+
+    return { premio1, premio2 };
+  } catch (error) {
+    console.error("Error al cargar los premios:", error);
+    return null;
+  }
+}
+
 async function iniciarJuego() {
   await customAlert("BIENVENIDO");
   desaparecerboton();
@@ -90,11 +112,15 @@ async function iniciarParticipante() {
     }
 
     async saludar() {
-      await customAlert(`Buenas ${this.nombre} ${this.apellido}, te deseo suerte en el sorteo del número ganador.`);
+      await customAlert(
+        `Buenas ${this.nombre} ${this.apellido}, te deseo suerte en el sorteo del número ganador.`
+      );
     }
 
     cargarIntentos() {
-      const intentosGuardados = localStorage.getItem("intentosquelequedaron-intentos");
+      const intentosGuardados = localStorage.getItem(
+        "intentosquelequedaron-intentos"
+      );
       this.intentos = intentosGuardados ? parseInt(intentosGuardados) : 3;
       this.guardarIntentos();
     }
@@ -105,9 +131,13 @@ async function iniciarParticipante() {
 
     async verificarIntentos() {
       if (this.intentos > 0) {
-        await customAlert(`${this.nombre} ${this.apellido}, tienes ${this.intentos} intentos para adivinar el número ganador.`);
+        await customAlert(
+          `${this.nombre} ${this.apellido}, tienes ${this.intentos} intentos para adivinar el número ganador.`
+        );
       } else {
-        await customAlert(`${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`);
+        await customAlert(
+          `${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`
+        );
         textogameover();
         desaparecerboton();
       }
@@ -117,24 +147,32 @@ async function iniciarParticipante() {
     async adivinarNumero() {
       let acierto = false;
       while (this.intentos > 0 && !acierto) {
-        const usuario = await customPrompt("Ingrese un número entre el 0 y el 20");
+        const usuario = await customPrompt(
+          "Ingrese un número entre el 0 y el 20"
+        );
         if (usuario !== null) {
           let numero = parseInt(usuario);
           localStorage.setItem("numeroingresado1p", numero);
           if (this.numerosGanadores.includes(numero)) {
             acierto = true;
-            await customAlert(`${this.nombre} ${this.apellido}, ¡Felicidades! Has adivinado uno de los números ganadores.`);
+            await customAlert(
+              `${this.nombre} ${this.apellido}, ¡Felicidades! Has adivinado uno de los números ganadores.`
+            );
             this.entregarPremio(numero);
           } else {
             this.intentos--;
-            await customAlert(`${this.nombre} ${this.apellido}, un intento menos, intenta nuevamente.`);
+            await customAlert(
+              `${this.nombre} ${this.apellido}, un intento menos, intenta nuevamente.`
+            );
           }
           this.guardarIntentos();
         }
       }
 
       if (!acierto) {
-        await customAlert(`${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`);
+        await customAlert(
+          `${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`
+        );
         textogameover();
         desaparecerboton();
       }
@@ -142,17 +180,28 @@ async function iniciarParticipante() {
 
     async entregarPremio(numeroGanador) {
       clearInterval(temporizador);
-      if ([2, 17, 13, 4, 7].includes(numeroGanador)) {
-        await customAlert(`${this.nombre} ${this.apellido}, te has ganado un ${premio1.marca} ${premio1.modelo}, con una memoria de ${premio1.memoria} en su versión color ${premio1.color}.`);
-        localStorage.setItem("premio1", JSON.stringify(premio1));
-        await this.intentosSegundoPremio();
+      const premios = await obtenerPremiosAleatorios();
+
+      if (premios) {
+        if ([2, 17, 13, 4, 7].includes(numeroGanador)) {
+          await customAlert(
+            `${this.nombre} ${this.apellido}, te has ganado un ${premios.premio1.marca} ${premios.premio1.modelo}, con una memoria de ${premios.premio1.memoria} en su versión color ${premios.premio1.color}.`
+          );
+          localStorage.setItem("premio1", JSON.stringify(premios.premio1));
+        } else {
+          await customAlert(
+            `${this.nombre} ${this.apellido}, te has ganado una entrada para el sorteo del premio mayor.`
+          );
+        }
+        await this.intentosSegundoPremio(premios.premio2);
       } else {
-        await customAlert(`${this.nombre} ${this.apellido}, te has ganado una entrada para el sorteo del premio mayor.`);
-        await this.intentosSegundoPremio();
+        console.error("No se pudieron cargar los premios aleatorios.");
+        textogameover();
+        desaparecerBotonInicio();
       }
     }
 
-    async intentosSegundoPremio() {
+    async intentosSegundoPremio(premio2) {
       let numeroGanadorSegundoPremio = Math.floor(Math.random() * 4);
       const intento = await customPrompt(`${this.nombre} ${this.apellido}, ingrese un número entre el 0 y el 3 para el premio mayor`);
       if (intento !== null) {
