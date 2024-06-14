@@ -35,7 +35,7 @@ function textoganador() {
 }
 
 async function obtenerPremiosAleatorios() {
-  try {
+  try{
     const response = await fetch("premios.json");
     if (!response.ok) {
       throw new Error("No se pudo cargar el archivo de premios.");
@@ -87,19 +87,6 @@ function iniciarTemporizador() {
 }
 
 async function iniciarParticipante() {
-  const premio1 = {
-    marca: "iPhone",
-    modelo: 15,
-    memoria: "512GB",
-    color: "Blanco",
-  };
-
-  const premio2 = {
-    marca: "Tesla",
-    modelo: "Cybertruck",
-    color: "Gris",
-  };
-
   const hoy = new Date("Mayo 29, 2024");
 
   class Participante {
