@@ -1,4 +1,6 @@
-button1,button1::after {
+/* Inicia el estilo de boton de inicio  */
+button1,
+button1::after {
   padding: 10px 50px;
   font-size: 20px;
   border: none;
@@ -16,7 +18,7 @@ button1::after {
   --move5: inset(45% 0 6% 0);
   --move6: inset(14% 0 61% 0);
   clip-path: var(--move1);
-  content: 'GLITCH';
+  content: "GLITCH";
   position: absolute;
   top: 0;
   left: 0;
@@ -29,13 +31,13 @@ button1:hover::after {
   animation: glitch_4011 1s;
   text-shadow: 10 10px 10px black;
   animation-timing-function: steps(2, end);
-  text-shadow: -3px -3px 0px #1df2f0, 3px 3px 0px #E94BE8;
+  text-shadow: -3px -3px 0px #1df2f0, 3px 3px 0px #e94be8;
   background-color: transparent;
   border: 3px solid rgb(0, 255, 213);
 }
 
 button1:hover {
-  text-shadow: -1px -1px 0px #1df2f0, 1px 1px 0px #E94BE8;
+  text-shadow: -1px -1px 0px #1df2f0, 1px 1px 0px #e94be8;
 }
 
 button1:hover {
@@ -47,52 +49,52 @@ button1:hover {
 @keyframes glitch_4011 {
   0% {
     clip-path: var(--move1);
-    transform: translate(0px,-10px);
+    transform: translate(0px, -10px);
   }
 
   10% {
     clip-path: var(--move2);
-    transform: translate(-10px,10px);
+    transform: translate(-10px, 10px);
   }
 
   20% {
     clip-path: var(--move3);
-    transform: translate(10px,0px);
+    transform: translate(10px, 0px);
   }
 
   30% {
     clip-path: var(--move4);
-    transform: translate(-10px,10px);
+    transform: translate(-10px, 10px);
   }
 
   40% {
     clip-path: var(--move5);
-    transform: translate(10px,-10px);
+    transform: translate(10px, -10px);
   }
 
   50% {
     clip-path: var(--move6);
-    transform: translate(-10px,10px);
+    transform: translate(-10px, 10px);
   }
 
   60% {
     clip-path: var(--move1);
-    transform: translate(10px,-10px);
+    transform: translate(10px, -10px);
   }
 
   70% {
     clip-path: var(--move3);
-    transform: translate(-10px,10px);
+    transform: translate(-10px, 10px);
   }
 
   80% {
     clip-path: var(--move2);
-    transform: translate(10px,-10px);
+    transform: translate(10px, -10px);
   }
 
   90% {
     clip-path: var(--move4);
-    transform: translate(-10px,10px);
+    transform: translate(-10px, 10px);
   }
 
   100% {
@@ -100,9 +102,6 @@ button1:hover {
     transform: translate(0);
   }
 }
-
-
-
 
 /* CIERRA BOTON DE INICIO  */
 
@@ -119,7 +118,7 @@ button1:hover {
   justify-content: center;
   align-items: center;
   scale: 2;
-  box-shadow: 0 .5em #AA1111;
+  box-shadow: 0 0.5em #aa1111;
 }
 
 .button2 {

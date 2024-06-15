@@ -20,21 +20,21 @@
     }
   ],
 
-    "premios2": [
-        {
-        "marca" : "Tesla",
-        "modelo": "Cybertruck",
-        "color": "Gris"
-        },
-        {
-        "marca" : "Ferrari",
-        "modelo": "SF90 Stradale",
-        "color": "Rojo"
-        },
-        {
-        "marca" : "Lamborghini",
-        "modelo": "URUS SE",
-        "color": "Naranja"
-        }
-    ]
+  "premios2": [
+    {
+      "marca": "Tesla",
+      "modelo": "Cybertruck",
+      "color": "Gris"
+    },
+    {
+      "marca": "Ferrari",
+      "modelo": "SF90 Stradale",
+      "color": "Rojo"
+    },
+    {
+      "marca": "Lamborghini",
+      "modelo": "URUS SE",
+      "color": "Naranja"
+    }
+  ]
 }

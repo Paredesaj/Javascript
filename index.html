@@ -7,14 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jersey+20&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
-
+<!-- Css para agregar efectos de botones  -->
 <link rel="stylesheet" href="style.css">
+<!-- Libreria sweetalert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
-    <title>Proyecto</title>
-
+    <title>Proyecto Final</title>
+<!-- Estilo para el body -->
     <style>
       body {
         display: flex;
@@ -26,6 +27,7 @@
         flex-direction: column;
         text-align: center;
       }
+      /* Estilo de boton de inicio para el usuario  */
       #botondeinicio {
         border-radius: 20px;
         padding: 10px 20px;
@@ -33,15 +35,7 @@
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
       }
-      #botondeinicio:hover {
-        background-color: Turquoise;
-        color: #000;
-      }
-      #coloresfondocambio {
-        margin-top: 20px;
-        font-size: 18px;
-        color: rgb(0, 0, 0);
-      }
+      /* Estilo para el temporizador  */
       #temporizador {
         position: fixed;
       top: 10px;
@@ -56,13 +50,17 @@
     </style>
   </head>
   <body>
+    <!-- Id para mensaje perder  -->
     <h1 id="mensajedeperder" style="background-color: black;"></h1>
-    <div id="temporizador">Tiempo restante:<br> <span id="tiempoRestante">30</span>segundos</div>
+    <!-- Texto para el tiempo del temporizador -->
+    <div id="temporizador">Tiempo restante:<br> <span id="tiempoRestante">45</span> Segundos</div>
+    <!-- Texto e id para el boton del inicio del juego  -->
     <div  id="botondeinicio">
       <button1>
         INICIA EL JUEGO
       </button1>
   </div>
+  <!-- Id para el boton de cambio de color para cuando el usuario gana  -->
     <div id="botondecambiodecolor">
       <div class="container2">
         <button class="button2">
@@ -71,7 +69,9 @@
         </button>
       </div>
     </div>
+    <!-- Id para crear el cambio de color random al ganar el usuario -->
     <div id="coloresfondocambio"></div>
+    <!-- Enlace a mi js  -->
     <script src="main.js"></script>
   </body>
 </html>
