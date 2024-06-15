@@ -18,10 +18,44 @@ function textogameover() {
   document.body.style.backgroundColor = "black";
   mensajedeperder.style.fontSize = "100px";
   mensajedeperder.style.textAlign = "center";
-  mensajedeperder.style.color = "white";
   mensajedeperder.style.fontFamily = "'Jersey 20', sans-serif";
   mensajedeperder.style.fontWeight = 400;
   mensajedeperder.style.fontStyle = "normal";
+  mensajedeperder.style.background = "linear-gradient(90deg, yellow, orange)";
+  mensajedeperder.style.webkitBackgroundClip = "text";
+  mensajedeperder.style.webkitTextFillColor = "transparent";
+  mensajedeperder.style.backgroundClip = "text";
+  mensajedeperder.style.color = "transparent";
+
+  // Crear el contenedor de botones
+  const buttonContainer = document.createElement('div');
+  buttonContainer.style.display = 'flex';
+  buttonContainer.style.justifyContent = 'center';
+  buttonContainer.style.marginTop = '20px';
+  document.body.appendChild(buttonContainer);
+
+  // Crear el botón "ENTRAR DE NUEVO"
+  const botonsi = document.createElement('button1');
+  botonsi.textContent = 'ENTRAR DE NUEVO';
+  botonsi.style.padding = '10px 20px';
+  botonsi.style.fontSize = '16px';
+  botonsi.style.cursor = 'pointer';
+  botonsi.style.marginRight = '10px'; // Espacio entre los botones
+  buttonContainer.appendChild(botonsi);
+  botonsi.addEventListener('click', () => {
+    location.reload();
+  });
+
+  // Crear el botón "SALIR DEL JUEGO!"
+  const botonno = document.createElement('button1');
+  botonno.textContent = 'SALIR DEL JUEGO!';
+  botonno.style.padding = '10px 20px';
+  botonno.style.fontSize = '16px';
+  botonno.style.cursor = 'pointer';
+  buttonContainer.appendChild(botonno);
+  botonno.addEventListener('click', () => {
+    window.close();
+  });
 }
 
 function textoganador() {
@@ -35,7 +69,7 @@ function textoganador() {
 }
 
 async function obtenerPremiosAleatorios() {
-  try{
+  try {
     const response = await fetch("premios.json");
     if (!response.ok) {
       throw new Error("No se pudo cargar el archivo de premios.");
@@ -44,10 +78,8 @@ async function obtenerPremiosAleatorios() {
     const primerPremio = data.premios1;
     const segundoPremio = data.premios2;
 
-    const premio1 =
-      primerPremio[Math.floor(Math.random() * primerPremio.length)];
-    const premio2 =
-      segundoPremio[Math.floor(Math.random() * segundoPremio.length)];
+    const premio1 = primerPremio[Math.floor(Math.random() * primerPremio.length)];
+    const premio2 = segundoPremio[Math.floor(Math.random() * segundoPremio.length)];
 
     return { premio1, premio2 };
   } catch (error) {
@@ -59,7 +91,6 @@ async function obtenerPremiosAleatorios() {
 async function iniciarJuego() {
   await customAlert("BIENVENIDO");
   desaparecerboton();
-  iniciarTemporizador();
   setTimeout(iniciarParticipante, 2000);
 }
 
@@ -96,18 +127,15 @@ async function iniciarParticipante() {
       this.intentos = 3;
       this.numerosGanadores = [2, 4, 7, 13, 17];
       this.cargarIntentos();
+      iniciarTemporizador();
     }
 
     async saludar() {
-      await customAlert(
-        `Buenas ${this.nombre} ${this.apellido}, te deseo suerte en el sorteo del número ganador.`
-      );
+      await customAlert(`Buenas ${this.nombre} ${this.apellido}, te deseo suerte en el sorteo del número ganador.`);
     }
 
     cargarIntentos() {
-      const intentosGuardados = localStorage.getItem(
-        "intentosquelequedaron-intentos"
-      );
+      const intentosGuardados = localStorage.getItem("intentosquelequedaron-intentos");
       this.intentos = intentosGuardados ? parseInt(intentosGuardados) : 3;
       this.guardarIntentos();
     }
@@ -117,52 +145,35 @@ async function iniciarParticipante() {
     }
 
     async verificarIntentos() {
-      if (this.intentos > 0) {
-        await customAlert(
-          `${this.nombre} ${this.apellido}, tienes ${this.intentos} intentos para adivinar el número ganador.`
-        );
-      } else {
-        await customAlert(
-          `${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`
-        );
-        textogameover();
-        desaparecerboton();
-      }
+      const mensaje = this.intentos > 0
+        ? `${this.nombre} ${this.apellido}, tienes ${this.intentos} intentos para adivinar el número ganador.`
+        : `${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`;
+
+      await customAlert(mensaje);
+
+      this.intentos === 0 && (textogameover(), desaparecerboton());
+
       this.guardarIntentos();
     }
 
     async adivinarNumero() {
       let acierto = false;
       while (this.intentos > 0 && !acierto) {
-        const usuario = await customPrompt(
-          "Ingrese un número entre el 0 y el 20"
-        );
+        const usuario = await customPrompt("Ingrese un número entre el 0 y el 20");
+
         if (usuario !== null) {
-          let numero = parseInt(usuario);
+          const numero = parseInt(usuario);
           localStorage.setItem("numeroingresado1p", numero);
-          if (this.numerosGanadores.includes(numero)) {
-            acierto = true;
-            await customAlert(
-              `${this.nombre} ${this.apellido}, ¡Felicidades! Has adivinado uno de los números ganadores.`
-            );
-            this.entregarPremio(numero);
-          } else {
-            this.intentos--;
-            await customAlert(
-              `${this.nombre} ${this.apellido}, un intento menos, intenta nuevamente.`
-            );
-          }
+
+          this.numerosGanadores.includes(numero)
+            ? (acierto = true, await customAlert(`${this.nombre} ${this.apellido}, ¡Felicidades! Has adivinado uno de los números ganadores.`), this.entregarPremio(numero))
+            : (this.intentos--, await customAlert(`${this.nombre} ${this.apellido}, un intento menos, intenta nuevamente.`));
+
           this.guardarIntentos();
         }
       }
 
-      if (!acierto) {
-        await customAlert(
-          `${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`
-        );
-        textogameover();
-        desaparecerboton();
-      }
+      !acierto && (await customAlert(`${this.nombre} ${this.apellido}, has perdido todas tus oportunidades.`), textogameover(), desaparecerboton());
     }
 
     async entregarPremio(numeroGanador) {
@@ -170,16 +181,10 @@ async function iniciarParticipante() {
       const premios = await obtenerPremiosAleatorios();
 
       if (premios) {
-        if ([2, 17, 13, 4, 7].includes(numeroGanador)) {
-          await customAlert(
-            `${this.nombre} ${this.apellido}, te has ganado un ${premios.premio1.marca} ${premios.premio1.modelo}, con una memoria de ${premios.premio1.memoria} en su versión color ${premios.premio1.color}.`
-          );
-          localStorage.setItem("premio1", JSON.stringify(premios.premio1));
-        } else {
-          await customAlert(
-            `${this.nombre} ${this.apellido}, te has ganado una entrada para el sorteo del premio mayor.`
-          );
-        }
+        [2, 17, 13, 4, 7].includes(numeroGanador)
+          ? (await customAlert(`${this.nombre} ${this.apellido}, te has ganado un ${premios.premio1.marca} ${premios.premio1.modelo}, con una memoria de ${premios.premio1.memoria} en su versión color ${premios.premio1.color}.`), localStorage.setItem("premio1", JSON.stringify(premios.premio1)))
+          : await customAlert(`${this.nombre} ${this.apellido}, te has ganado una entrada para el sorteo del premio mayor.`);
+
         await this.intentosSegundoPremio(premios.premio2);
       } else {
         console.error("No se pudieron cargar los premios aleatorios.");
@@ -191,21 +196,15 @@ async function iniciarParticipante() {
     async intentosSegundoPremio(premio2) {
       let numeroGanadorSegundoPremio = Math.floor(Math.random() * 4);
       const intento = await customPrompt(`${this.nombre} ${this.apellido}, ingrese un número entre el 0 y el 3 para el premio mayor`);
+
       if (intento !== null) {
-        let numero = parseInt(intento);
+        const numero = parseInt(intento);
         localStorage.setItem("numeroingresado2p", numero);
-        if (numero === numeroGanadorSegundoPremio || numero === 2) {
-          await customAlert(`${this.nombre} ${this.apellido}, ¡Increíble! Has ganado el premio mayor, un ${premio2.marca} ${premio2.modelo} ${premio2.color} 0km.`);
-          localStorage.setItem("premio2", JSON.stringify(premio2));
-          textoganador();
-          document.addEventListener("click", cambiodefondoaleatorio);
-          await customAlert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}.`);
-        } else {
-          await customAlert(`${this.nombre} ${this.apellido}, lo siento, no has ganado el premio mayor esta vez. El número ganador era ${numeroGanadorSegundoPremio}.`);
-          document.body.style.backgroundColor = "black";
-          await customAlert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}.`);
-          textogameover();
-        }
+
+        numero === numeroGanadorSegundoPremio || numero === 2
+          ? (await customAlert(`${this.nombre} ${this.apellido}, ¡Increíble! Has ganado el premio mayor, un ${premio2.marca} ${premio2.modelo} ${premio2.color} 0km.`), localStorage.setItem("premio2", JSON.stringify(premio2)), textoganador(), document.addEventListener("click", cambiodefondoaleatorio), await customAlert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}.`))
+          : (await customAlert(`${this.nombre} ${this.apellido}, lo siento, no has ganado el premio mayor esta vez. El número ganador era ${numeroGanadorSegundoPremio}.`), document.body.style.backgroundColor = "black", await customAlert(`No olvides reclamar tus premios ganados en nuestras agencias en la siguiente fecha ${hoy.toDateString()}.`), textogameover());
+
         desaparecerboton();
       }
     }
@@ -237,7 +236,6 @@ async function iniciarParticipante() {
     desaparecerboton();
   }
 }
-
 botondeinicio.addEventListener("click", iniciarJuego);
 localStorage.clear();
 
@@ -273,6 +271,7 @@ async function customConfirm(message) {
     showCancelButton: true,
     confirmButtonText: "Sí",
     cancelButtonText: "No",
+    
   });
   return result.isConfirmed;
 }
